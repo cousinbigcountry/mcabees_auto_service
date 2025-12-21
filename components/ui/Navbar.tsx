@@ -33,9 +33,9 @@ export function Navbar() {
       <div className="flex items-center gap-5">
         <Link href="/"><Image src="/logo.png" alt="logo" width={100} height={50} /></Link>
         <Link href="/">Home</Link>
-        <Link href="/">Services</Link>
-        <Link href="/">About</Link>
-        <Link href="/">Contact</Link>
+        <Link href="/services">Services</Link>
+        <Link href="/about">About</Link>
+        <Link href="/contact">Contact</Link>
         {/* THEME MENU */}
             <DropdownMenu>
       <DropdownMenuTrigger asChild>
