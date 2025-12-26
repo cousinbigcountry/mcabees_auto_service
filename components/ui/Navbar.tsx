@@ -1,6 +1,6 @@
 "use client"
 
-import { LogOut, Moon, Settings, User, Sun } from "lucide-react";
+import { LogOut, Moon, Settings, User, Sun, ArrowBigRight, ChevronRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
@@ -16,28 +16,40 @@ import Link from "next/link"
 import { SidebarTrigger, useSidebar } from "./sidebar";
 import Image from "next/image";
 
-
-
-
-export function Navbar() {
-
-  const {theme, setTheme} = useTheme();
-  const {toggleSidebar} = useSidebar()
+const NavLogo = () => {
   return (
-    <nav className="p-4 flex items-center">
-      {/* LEFT */}
-      <SidebarTrigger />
-      {/*<Button variant="outline" onClick={toggleSidebar}>Custom Button</Button> */}
-      {/* RIGHT */}
-      
-      <div className="flex items-center gap-5">
-        <Link href="/"><Image src="/logo.png" alt="logo" width={100} height={50} /></Link>
-        <Link href="/">Home</Link>
-        <Link href="/services">Services</Link>
-        <Link href="/about">About</Link>
-        <Link href="/contact">Contact</Link>
-        {/* THEME MENU */}
-            <DropdownMenu>
+    <Link href="/"><Image src="/logo.png" alt="logo" width={100} height={100} /></Link>
+  )
+}
+
+const navItems = [
+  {
+    id: "home",
+    label: "Home",
+    href: "/",
+  },
+  {
+    id: "services",
+    label: "Services",
+    href: "/services",
+  },
+  {
+    id: "about",
+    label: "About",
+    href: "/about",
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    href: "/contact",
+  },
+]
+
+const ThemeButton = () => {
+   const {theme, setTheme} = useTheme();
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -57,9 +69,12 @@ export function Navbar() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
 
-        {/* USER MENU */}
-        <DropdownMenu>
+const UserMenu = () => {
+  return (
+            <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
               <AvatarImage src="TODO" />
@@ -83,6 +98,35 @@ export function Navbar() {
               </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+  )
+}
+
+export function Navbar() {
+
+ 
+  const {toggleSidebar} = useSidebar()
+  return (
+    <nav className="p-4 w-full flex items-center"> 
+      {/* LEFT */}
+     {/* <SidebarTrigger /> */}
+      <Button variant="ghost" onClick={toggleSidebar}><ChevronRight /></Button> 
+      {/* RIGHT */}
+      
+      <div className="flex w-full items-center justify-evenly">
+        
+        <NavLogo />
+
+        {/* NAV ITEMS LOOP */}
+        {navItems.map((item) => 
+        <Link key={item.id} href={item.href}>{item.label}</Link>
+        )}
+
+        {/* THEME MENU */}
+        <ThemeButton/>
+
+        {/* USER MENU */}
+        <UserMenu />
+
       </div>
     </nav>
   );

@@ -1,3 +1,4 @@
+"use client"
 import { Calendar, ChevronDown, ChevronUp, Home, Inbox, Plus, Projector, Search, Settings, User2 } from "lucide-react"
 
 import {
